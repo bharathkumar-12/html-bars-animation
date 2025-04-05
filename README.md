@@ -2,7 +2,9 @@
 
 A modern, lightweight, and easy-to-use CSS animation library for web developers. Animotion provides a collection of carefully crafted animations that can be easily integrated into any web project.
 
-![Animotion Preview](preview.png)
+
+![screencapture-zippy-squirrel-09cf8b-netlify-app-2025-04-05-11_54_25](https://github.com/user-attachments/assets/55e9c0d0-9d80-495d-80c2-fe166fbbf282)
+
 
 ## Features
 
