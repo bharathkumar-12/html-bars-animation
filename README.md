@@ -1,74 +1,183 @@
-<img width="1308" alt="Screenshot 2024-11-23 at 2 47 06 PM" src="https://github.com/user-attachments/assets/d04488bb-477f-4081-9c42-a47a02c1d23a">
+# Animotion - Frontend Animation Library
 
-# Smooth Bar Chart Animation
+A modern, lightweight, and easy-to-use CSS animation library for web developers. Animotion provides a collection of carefully crafted animations that can be easily integrated into any web project.
 
-A responsive and visually appealing bar chart animation with smooth transitions, designed using HTML, CSS, and JavaScript. Each bar moves independently with fluid motion, making it perfect for UI/UX showcases or educational purposes.
+![Animotion Preview](preview.png)
 
 ## Features
 
-- **Smooth Animation**: Bars move fluidly using `requestAnimationFrame` for a natural and seamless experience.
-- **Randomized Speeds**: Each bar has its own unique speed and movement pattern.
-- **Dark Gray Theme**: A modern and professional dark gray background with vibrant bar colors.
-- **Interactive Controls**:
-  - **Start**: Begins or resumes the animation.
-  - **Stop**: Halts the animation.
-  - **Reset**: Instantly fills all bars to their maximum height and stops the animation.
+- 🎨 20+ Beautiful CSS Animations
+- 📱 Mobile-friendly and responsive
+- ⚡ Performance optimized
+- 🎯 Easy to implement
+- 🎮 Interactive controls
+- 📋 One-click code copying
+- 🎭 Categorized animations
+- 🌈 Customizable colors
 
-## Technologies Used
+## Categories
 
-- **HTML**: For the structure of the bar chart and controls.
-- **CSS**: For styling and smooth transitions.
-- **JavaScript**: For the animation logic and interactivity.
+### Basic Animations
 
-## How to Use
+- Bouncing Ball
+- Pulse
+- Rotating Square
+- Sliding Bar
+- Fade
+- Scale
+- Floating
+- Spinner
 
-1. Clone or download the repository.
-   ```bash
-   git clone https://github.com/your-username/smooth-bar-chart-animation.git
+### Advanced Animations
 
-## Color Guide for Smooth Bar Chart Animation
+- Wave
+- Gradient
+- Morphing
+- Heartbeat
+- Flip
 
-### Background Colors
-| Element             | Hex Code  | Description                              |
-|---------------------|-----------|------------------------------------------|
-| **Main Background** | `#2c2c2c` | Dark gray for a modern and neutral look. |
-| **Chart Container** | `#444444` | Slightly lighter gray for contrast.      |
+### Effects
 
-### Bar Colors
-| Bar Name        | Hex Code  | Description                                |
-|------------------|-----------|--------------------------------------------|
-| **Olive Green**  | `#4E9F3D` | A calm, natural green for freshness.       |
-| **Amber Yellow** | `#F5B700` | A rich yellow for vibrancy.                |
-| **Deep Sky Blue**| `#1E81B0` | A professional and bold blue.              |
-| **Coral Red**    | `#E94560` | A warm and energetic red.                  |
-| **Soft Purple**  | `#A06CD5` | An elegant and muted purple.               |
+- Typing
+- Shake
+- Border
+- Glitch
+- Neon
+- Ripple
+- Shimmer
 
-### Button Colors
-| Button Purpose | Background Color | Hover Color  | Description                          |
-|-----------------|------------------|--------------|--------------------------------------|
-| **Start**       | `#4caf50`       | `#66bb6a`    | Green for action (start animation).  |
-| **Reset**       | `#f39c12`       | `#f5a623`    | Orange for resetting animations.     |
-| **Stop**        | `#e74c3c`       | `#f05a5b`    | Red for stopping the animation.      |
+## Getting Started
 
-### Color Palette Preview
-#### **Backgrounds**
-| Element         | Hex Code  |
-|-----------------|-----------|
-| Main Background | `#2c2c2c` |
-| Chart Container | `#444444` |
+1. Clone the repository:
 
-#### **Bars**
-| Bar Index | Hex Code  | Color Name       |
-|-----------|-----------|------------------|
-| 1         | `#4E9F3D` | Olive Green      |
-| 2         | `#F5B700` | Amber Yellow     |
-| 3         | `#1E81B0` | Deep Sky Blue    |
-| 4         | `#E94560` | Coral Red        |
-| 5         | `#A06CD5` | Soft Purple      |
+```bash
+git clone https://github.com/yourusername/animotion.git
+```
 
-#### **Buttons**
-| Button   | Background Color | Hover Color  |
-|----------|------------------|--------------|
-| Start    | `#4caf50`        | `#66bb6a`    |
-| Reset    | `#f39c12`        | `#f5a623`    |
-| Stop     | `#e74c3c`        | `#f05a5b`    |
+2. Include the library in your HTML:
+
+```html
+<link rel="stylesheet" href="path/to/animotion.css" />
+```
+
+3. Use any animation in your HTML:
+
+```html
+<div class="bouncing-ball"></div>
+```
+
+## Usage
+
+### Basic Implementation
+
+1. Choose an animation from the library
+2. Copy the CSS code
+3. Apply the class to your element
+
+Example:
+
+```html
+<!-- HTML -->
+<div class="pulse"></div>
+
+<!-- CSS -->
+<style>
+	.pulse {
+		width: 60px;
+		height: 60px;
+		background-color: var(--primary);
+		border-radius: 50%;
+		animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+		box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+	}
+
+	@keyframes pulse {
+		0%,
+		100% {
+			transform: scale(1);
+			opacity: 1;
+		}
+		50% {
+			transform: scale(1.2);
+			opacity: 0.8;
+		}
+	}
+</style>
+```
+
+### Customization
+
+You can customize animations by:
+
+- Adjusting sizes
+- Changing colors
+- Modifying timing
+- Adjusting animation parameters
+
+Example:
+
+```css
+.pulse {
+	/* Change size */
+	width: 80px;
+	height: 80px;
+
+	/* Change color */
+	background-color: #ff0000;
+
+	/* Change timing */
+	animation-duration: 1s;
+}
+```
+
+## Browser Support
+
+- Chrome (latest)
+- Firefox (latest)
+- Safari (latest)
+- Edge (latest)
+- Opera (latest)
+
+## Performance Optimization
+
+- Uses CSS transforms for better performance
+- Hardware-accelerated animations
+- Optimized keyframes
+- Minimal DOM manipulation
+
+## Contributing
+
+Contributions are welcome! Please feel free to submit a Pull Request.
+
+1. Fork the repository
+2. Create your feature branch (`git checkout -b feature/AmazingFeature`)
+3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
+4. Push to the branch (`git push origin feature/AmazingFeature`)
+5. Open a Pull Request
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+## Acknowledgments
+
+- Inspired by modern web design trends
+- Built with performance in mind
+- Thanks to all contributors
+
+## Support
+
+If you find this library helpful, please consider:
+
+- ⭐ Starring the repository
+- 🐛 Reporting bugs
+- 💡 Suggesting new features
+- 🤝 Contributing code
+
+## Credits
+
+Created with ❤️ by Bharath Kumar
+
+---
+
+Made with modern web technologies and a passion for beautiful animations.

@@ -3,125 +3,1957 @@
 	<head>
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<title>Smooth Fluid Bar Animation</title>
+		<title>Animotion - Frontend Animation Library</title>
+		<link
+			rel="stylesheet"
+			href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism-tomorrow.min.css"
+		/>
+		<link
+			rel="stylesheet"
+			href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+		/>
+		<link
+			rel="stylesheet"
+			href="https://fonts.googleapis.com/css2?family=SF+Pro+Display:wght@300;400;500;600;700&display=swap"
+		/>
 		<style>
 			* {
 				margin: 0;
 				padding: 0;
 				box-sizing: border-box;
 			}
+			:root {
+				--primary: #0071e3;
+				--secondary: #86868b;
+				--accent: #2997ff;
+				--background: #ffffff;
+				--surface: #f5f5f7;
+				--text: #1d1d1f;
+				--text-secondary: #86868b;
+				--card-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
+					0 2px 4px -1px rgba(0, 0, 0, 0.06);
+				--card-hover-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1),
+					0 4px 6px -2px rgba(0, 0, 0, 0.05);
+			}
 			body {
+				font-family: "SF Pro Display", -apple-system, BlinkMacSystemFont,
+					sans-serif;
+				background-color: var(--background);
+				color: var(--text);
+				line-height: 1.47059;
+				font-weight: 400;
+				letter-spacing: -0.022em;
+			}
+			.navbar {
+				position: fixed;
+				top: 0;
+				left: 0;
+				right: 0;
+				background-color: rgba(255, 255, 255, 0.8);
+				backdrop-filter: saturate(180%) blur(20px);
+				padding: 1rem 2rem;
+				z-index: 1000;
 				display: flex;
-				flex-direction: column;
+				justify-content: space-between;
+				align-items: center;
+				border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+			}
+			.logo {
+				font-size: 1.5rem;
+				font-weight: 600;
+				color: var(--text);
+				letter-spacing: -0.03em;
+			}
+			.nav-links {
+				display: flex;
+				gap: 2rem;
+			}
+			.nav-links a {
+				color: var(--text);
+				text-decoration: none;
+				transition: color 0.2s;
+				font-size: 0.85rem;
+				font-weight: 500;
+			}
+			.nav-links a:hover {
+				color: var(--primary);
+			}
+			.hero {
+				padding: 12rem 2rem 6rem;
+				text-align: center;
+				background: linear-gradient(
+					180deg,
+					var(--background) 0%,
+					var(--surface) 100%
+				);
+				position: relative;
+				overflow: hidden;
+			}
+			.hero::before {
+				content: "";
+				position: absolute;
+				width: 300px;
+				height: 300px;
+				background: radial-gradient(circle, var(--primary) 0%, transparent 70%);
+				opacity: 0.1;
+				top: -150px;
+				right: -150px;
+				border-radius: 50%;
+				animation: float 6s ease-in-out infinite;
+			}
+			.hero::after {
+				content: "";
+				position: absolute;
+				width: 200px;
+				height: 200px;
+				background: radial-gradient(circle, var(--accent) 0%, transparent 70%);
+				opacity: 0.1;
+				bottom: -100px;
+				left: -100px;
+				border-radius: 50%;
+				animation: float 8s ease-in-out infinite reverse;
+			}
+			.hero h1 {
+				font-size: 4rem;
+				font-weight: 700;
+				letter-spacing: -0.04em;
+				margin-bottom: 1rem;
+				color: var(--text);
+			}
+			.hero p {
+				font-size: 1.5rem;
+				color: var(--text-secondary);
+				max-width: 600px;
+				margin: 0 auto 2rem;
+				font-weight: 400;
+				letter-spacing: -0.022em;
+			}
+			.cta-buttons {
+				display: flex;
+				gap: 1rem;
+				justify-content: center;
+				margin-bottom: 3rem;
+			}
+			.cta-button {
+				padding: 0.8rem 2rem;
+				border-radius: 980px;
+				font-weight: 500;
+				text-decoration: none;
+				transition: all 0.2s;
+				font-size: 1rem;
+			}
+			.cta-primary {
+				background-color: var(--primary);
+				color: white;
+			}
+			.cta-secondary {
+				background-color: var(--surface);
+				color: var(--text);
+				border: 1px solid rgba(0, 0, 0, 0.1);
+			}
+			.cta-button:hover {
+				transform: translateY(-1px);
+				box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+			}
+			.container {
+				max-width: 1200px;
+				margin: 0 auto;
+				padding: 2rem;
+				position: relative;
+			}
+			.container::before {
+				content: "";
+				position: absolute;
+				top: 0;
+				left: 0;
+				right: 0;
+				bottom: 0;
+				background-image: radial-gradient(
+						circle at 20px 20px,
+						var(--primary) 2px,
+						transparent 0
+					),
+					radial-gradient(circle at 40px 70px, var(--accent) 2px, transparent 0),
+					radial-gradient(
+						circle at 60px 120px,
+						var(--primary) 2px,
+						transparent 0
+					);
+				background-size: 100px 100px;
+				opacity: 0.05;
+				pointer-events: none;
+			}
+			.section-title {
+				text-align: center;
+				margin-bottom: 4rem;
+			}
+			.section-title h2 {
+				font-size: 3rem;
+				font-weight: 700;
+				letter-spacing: -0.04em;
+				margin-bottom: 1rem;
+				color: var(--text);
+			}
+			.section-title p {
+				color: var(--text-secondary);
+				font-size: 1.25rem;
+				font-weight: 400;
+			}
+			.categories {
+				display: flex;
+				gap: 1rem;
+				margin-bottom: 3rem;
+				justify-content: center;
+				flex-wrap: wrap;
+			}
+			.category-btn {
+				padding: 0.8rem 1.5rem;
+				background-color: var(--surface);
+				border: none;
+				border-radius: 980px;
+				color: var(--text);
+				cursor: pointer;
+				transition: all 0.2s;
+				font-weight: 500;
+				font-size: 0.9rem;
+			}
+			.category-btn.active {
+				background-color: var(--primary);
+				color: white;
+			}
+			.animations-grid {
+				display: grid;
+				grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+				gap: 2rem;
+			}
+			.animation-card {
+				background-color: var(--surface);
+				border-radius: 18px;
+				padding: 2rem;
+				box-shadow: var(--card-shadow);
+				transition: all 0.3s ease;
+				border: 1px solid rgba(0, 0, 0, 0.1);
+			}
+			.animation-card:hover {
+				transform: translateY(-5px);
+				box-shadow: var(--card-hover-shadow);
+			}
+			.animation-title {
+				font-size: 1.25rem;
+				margin-bottom: 1.5rem;
+				color: var(--text);
+				display: flex;
+				align-items: center;
+				gap: 0.75rem;
+				font-weight: 600;
+				letter-spacing: -0.022em;
+			}
+			.demo-container {
+				height: 200px;
+				background-color: white;
+				border-radius: 12px;
+				margin-bottom: 1.5rem;
+				display: flex;
 				align-items: center;
 				justify-content: center;
-				height: 100vh;
-				font-family: Arial, sans-serif;
-				background-color: #2c2c2c;
-				color: white;
-			}
-			.chart-container {
-				display: flex;
-				align-items: flex-end;
-				width: 80%;
-				height: 300px;
-				background-color: #444444;
-				border: 1px solid #555;
-				border-radius: 8px;
 				overflow: hidden;
-				box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
-			}
-			.bar {
-				flex: 1;
-				height: 0;
-				margin: 0;
-				border-radius: 2px;
+				box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.1);
+				position: relative;
 			}
 			.controls {
-				margin-top: 20px;
+				display: flex;
+				gap: 0.75rem;
+				margin-bottom: 1.5rem;
 			}
 			.controls button {
-				margin: 0 10px;
-				padding: 10px 40px;
-				font-size: 16px;
-				cursor: pointer;
+				padding: 0.6rem 1.2rem;
 				border: none;
-				border-radius: 5px;
-				background-color: #333;
-				color: white;
-				transition: all 0.2s ease-in-out;
+				border-radius: 980px;
+				background-color: var(--surface);
+				color: var(--text);
+				cursor: pointer;
+				transition: all 0.2s;
+				font-weight: 500;
+				font-size: 0.9rem;
+				box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
 			}
 			.controls button:hover {
-				transform: scale(1.05);
-				background-color: #555;
+				background-color: var(--primary);
+				color: white;
 			}
-			#start {
-				background-color: #4caf50;
+			.code-section {
+				position: relative;
+				background-color: #1d1d1f;
+				border-radius: 12px;
+				padding: 1.5rem;
+				box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.1);
+				height: 200px;
+				overflow: auto;
 			}
-			#reset {
-				background-color: #9b59b6;
+			.code-section pre {
+				margin: 0 !important;
+				border-radius: 8px;
+				font-size: 0.9rem;
+				font-family: "SF Mono", monospace;
+				height: 100%;
+				overflow: auto;
 			}
-			#stop {
-				background-color: #e74c3c;
+			.code-section code {
+				display: block;
+				height: 100%;
+				overflow: auto;
+				white-space: pre;
+				tab-size: 4;
+			}
+			.copy-button {
+				position: absolute;
+				top: 0.75rem;
+				right: 0.75rem;
+				padding: 0.4rem 0.8rem;
+				background-color: rgba(255, 255, 255, 0.1);
+				color: white;
+				border: none;
+				border-radius: 980px;
+				cursor: pointer;
+				font-size: 0.8rem;
+				transition: all 0.2s;
+				font-weight: 500;
+				z-index: 1;
+			}
+			.copy-button:hover {
+				background-color: rgba(255, 255, 255, 0.2);
+			}
+			/* Custom scrollbar for code section */
+			.code-section::-webkit-scrollbar {
+				width: 8px;
+				height: 8px;
+			}
+			.code-section::-webkit-scrollbar-track {
+				background: rgba(255, 255, 255, 0.1);
+				border-radius: 4px;
+			}
+			.code-section::-webkit-scrollbar-thumb {
+				background: rgba(255, 255, 255, 0.2);
+				border-radius: 4px;
+			}
+			.code-section::-webkit-scrollbar-thumb:hover {
+				background: rgba(255, 255, 255, 0.3);
+			}
+			footer {
+				background-color: var(--surface);
+				padding: 6rem 2rem;
+				margin-top: 6rem;
+				text-align: center;
+				border-top: 1px solid rgba(0, 0, 0, 0.1);
+			}
+			.footer-content {
+				max-width: 600px;
+				margin: 0 auto;
+			}
+			.footer-content h3 {
+				font-size: 2rem;
+				margin-bottom: 1rem;
+				font-weight: 700;
+				letter-spacing: -0.04em;
+			}
+			.footer-content p {
+				color: var(--text-secondary);
+				margin-bottom: 2rem;
+				font-size: 1.1rem;
+			}
+			.social-links {
+				display: flex;
+				gap: 1.5rem;
+				justify-content: center;
+			}
+			.social-links a {
+				color: var(--text);
+				font-size: 1.5rem;
+				transition: color 0.2s;
+			}
+			.social-links a:hover {
+				color: var(--primary);
+			}
+			/* Animation 1: Bouncing Ball */
+			.bouncing-ball {
+				width: 40px;
+				height: 40px;
+				background-color: var(--primary);
+				border-radius: 50%;
+				animation: bounce 1s cubic-bezier(0.36, 0, 0.66, -0.56) infinite;
+				box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+			}
+			@keyframes bounce {
+				0%,
+				100% {
+					transform: translateY(0);
+				}
+				50% {
+					transform: translateY(-80px);
+				}
+			}
+			/* Animation 2: Pulse */
+			.pulse {
+				width: 60px;
+				height: 60px;
+				background-color: var(--primary);
+				border-radius: 50%;
+				animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+				box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+			}
+			@keyframes pulse {
+				0%,
+				100% {
+					transform: scale(1);
+					opacity: 1;
+				}
+				50% {
+					transform: scale(1.2);
+					opacity: 0.8;
+				}
+			}
+			/* Animation 3: Rotating Square */
+			.rotating-square {
+				width: 50px;
+				height: 50px;
+				background-color: var(--primary);
+				animation: rotate 2s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+				box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+			}
+			@keyframes rotate {
+				from {
+					transform: rotate(0deg);
+				}
+				to {
+					transform: rotate(360deg);
+				}
+			}
+			/* Animation 4: Sliding Bar */
+			.sliding-bar {
+				width: 80%;
+				height: 8px;
+				background-color: var(--primary);
+				border-radius: 4px;
+				animation: slide 2s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+				box-shadow: 0 2px 4px -1px rgba(0, 0, 0, 0.1);
+			}
+			@keyframes slide {
+				0% {
+					transform: translateX(-100%);
+				}
+				100% {
+					transform: translateX(100%);
+				}
+			}
+			/* Animation 5: Wave */
+			.wave {
+				width: 100%;
+				height: 100px;
+				position: relative;
+				overflow: hidden;
+				background-color: var(--surface);
+			}
+			.wave::before {
+				content: "";
+				position: absolute;
+				width: 200%;
+				height: 200%;
+				background-color: var(--primary);
+				opacity: 0.8;
+				animation: wave 3s linear infinite;
+				top: 50%;
+				left: 50%;
+				transform-origin: 50% 50%;
+			}
+			@keyframes wave {
+				0% {
+					transform: translate(-50%, -50%) rotate(0deg);
+				}
+				100% {
+					transform: translate(-50%, -50%) rotate(360deg);
+				}
+			}
+			/* Animation 6: Typing */
+			.typing {
+				width: 0;
+				overflow: hidden;
+				border-right: 2px solid var(--primary);
+				white-space: nowrap;
+				font-size: 1.5rem;
+				font-weight: 500;
+				color: var(--text);
+				animation: typing 3s steps(40) infinite;
+				margin: 0 auto;
+			}
+			@keyframes typing {
+				from {
+					width: 0;
+				}
+				to {
+					width: 100%;
+				}
+			}
+			/* Animation 7: Shake */
+			.shake {
+				width: 60px;
+				height: 60px;
+				background-color: var(--primary);
+				border-radius: 12px;
+				animation: shake 0.5s cubic-bezier(0.36, 0, 0.66, -0.56) infinite;
+				box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+			}
+			@keyframes shake {
+				0%,
+				100% {
+					transform: translateX(0);
+				}
+				25% {
+					transform: translateX(-8px);
+				}
+				75% {
+					transform: translateX(8px);
+				}
+			}
+			/* Animation 8: Fade */
+			.fade {
+				width: 60px;
+				height: 60px;
+				background-color: var(--primary);
+				border-radius: 12px;
+				animation: fade 2s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+				box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+			}
+			@keyframes fade {
+				0%,
+				100% {
+					opacity: 1;
+				}
+				50% {
+					opacity: 0.3;
+				}
+			}
+			/* Animation 9: Scale */
+			.scale {
+				width: 60px;
+				height: 60px;
+				background-color: var(--primary);
+				border-radius: 12px;
+				animation: scale 2s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+				box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+			}
+			@keyframes scale {
+				0%,
+				100% {
+					transform: scale(1);
+				}
+				50% {
+					transform: scale(1.2);
+				}
+			}
+			/* Animation 10: Border */
+			.border-animation {
+				width: 60px;
+				height: 60px;
+				background-color: transparent;
+				border: 2px solid var(--primary);
+				border-radius: 12px;
+				animation: border 2s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+			}
+			@keyframes border {
+				0% {
+					border-color: var(--primary);
+				}
+				50% {
+					border-color: var(--accent);
+				}
+				100% {
+					border-color: var(--primary);
+				}
+			}
+			/* Animation 11: Gradient */
+			.gradient {
+				width: 60px;
+				height: 60px;
+				background: linear-gradient(45deg, var(--primary), var(--accent));
+				background-size: 200% 200%;
+				border-radius: 12px;
+				animation: gradient 3s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+				box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+			}
+			@keyframes gradient {
+				0% {
+					background-position: 0% 50%;
+				}
+				50% {
+					background-position: 100% 50%;
+				}
+				100% {
+					background-position: 0% 50%;
+				}
+			}
+			/* Animation 12: Morphing */
+			.morph {
+				width: 60px;
+				height: 60px;
+				background-color: var(--primary);
+				animation: morph 3s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+				box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+			}
+			@keyframes morph {
+				0% {
+					border-radius: 0;
+				}
+				50% {
+					border-radius: 50%;
+				}
+				100% {
+					border-radius: 0;
+				}
+			}
+			/* Animation 13: Floating */
+			.floating {
+				width: 60px;
+				height: 60px;
+				background-color: var(--primary);
+				border-radius: 12px;
+				animation: floating 3s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+				box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+			}
+			@keyframes floating {
+				0% {
+					transform: translateY(0);
+				}
+				50% {
+					transform: translateY(-20px);
+				}
+				100% {
+					transform: translateY(0);
+				}
+			}
+			/* Animation 14: Spinner */
+			.spinner {
+				width: 40px;
+				height: 40px;
+				border: 4px solid rgba(0, 0, 0, 0.1);
+				border-top: 4px solid var(--primary);
+				border-radius: 50%;
+				animation: spin 1s linear infinite;
+				display: inline-block;
+				vertical-align: middle;
+				transform-origin: center;
+				will-change: transform;
+			}
+			@keyframes spin {
+				from {
+					transform: rotate(0deg);
+				}
+				to {
+					transform: rotate(360deg);
+				}
+			}
+			/* Animation 15: Heartbeat */
+			.heartbeat {
+				width: 40px;
+				height: 40px;
+				background-color: var(--primary);
+				transform: rotate(45deg);
+				animation: heartbeat 1s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+				box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+				position: relative;
+			}
+			.heartbeat::before,
+			.heartbeat::after {
+				content: "";
+				width: 40px;
+				height: 40px;
+				background-color: var(--primary);
+				border-radius: 50%;
+				position: absolute;
+			}
+			.heartbeat::before {
+				left: -20px;
+			}
+			.heartbeat::after {
+				top: -20px;
+			}
+			@keyframes heartbeat {
+				0% {
+					transform: rotate(45deg) scale(1);
+				}
+				14% {
+					transform: rotate(45deg) scale(1.3);
+				}
+				28% {
+					transform: rotate(45deg) scale(1);
+				}
+				42% {
+					transform: rotate(45deg) scale(1.3);
+				}
+				70% {
+					transform: rotate(45deg) scale(1);
+				}
+			}
+			/* Animation 16: Glitch */
+			.glitch {
+				width: 60px;
+				height: 60px;
+				background-color: var(--primary);
+				border-radius: 12px;
+				position: relative;
+				animation: glitch 1s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+				box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+			}
+			.glitch::before,
+			.glitch::after {
+				content: "";
+				position: absolute;
+				top: 0;
+				left: 0;
+				width: 100%;
+				height: 100%;
+				background-color: var(--primary);
+				border-radius: 12px;
+			}
+			.glitch::before {
+				left: 2px;
+				background-color: var(--accent);
+				animation: glitch-anim-1 1s infinite linear alternate-reverse;
+			}
+			.glitch::after {
+				left: -2px;
+				background-color: var(--primary);
+				animation: glitch-anim-2 1s infinite linear alternate-reverse;
+			}
+			@keyframes glitch {
+				0% {
+					transform: translate(0);
+				}
+				20% {
+					transform: translate(-4px, 4px);
+				}
+				40% {
+					transform: translate(-4px, -4px);
+				}
+				60% {
+					transform: translate(4px, 4px);
+				}
+				80% {
+					transform: translate(4px, -4px);
+				}
+				100% {
+					transform: translate(0);
+				}
+			}
+			@keyframes glitch-anim-1 {
+				0% {
+					clip-path: inset(20% 0 30% 0);
+				}
+				20% {
+					clip-path: inset(65% 0 15% 0);
+				}
+				40% {
+					clip-path: inset(40% 0 50% 0);
+				}
+				60% {
+					clip-path: inset(25% 0 60% 0);
+				}
+				80% {
+					clip-path: inset(75% 0 5% 0);
+				}
+				100% {
+					clip-path: inset(10% 0 70% 0);
+				}
+			}
+			@keyframes glitch-anim-2 {
+				0% {
+					clip-path: inset(15% 0 35% 0);
+				}
+				20% {
+					clip-path: inset(70% 0 10% 0);
+				}
+				40% {
+					clip-path: inset(45% 0 45% 0);
+				}
+				60% {
+					clip-path: inset(30% 0 55% 0);
+				}
+				80% {
+					clip-path: inset(80% 0 0% 0);
+				}
+				100% {
+					clip-path: inset(5% 0 75% 0);
+				}
+			}
+			/* Animation 17: Neon */
+			.neon {
+				width: 60px;
+				height: 60px;
+				background-color: transparent;
+				border: 2px solid var(--primary);
+				border-radius: 12px;
+				box-shadow: 0 0 10px var(--primary), 0 0 20px var(--primary),
+					0 0 30px var(--primary);
+				animation: neon 2s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+				position: relative;
+			}
+			.neon::before {
+				content: "";
+				position: absolute;
+				top: -2px;
+				left: -2px;
+				right: -2px;
+				bottom: -2px;
+				border-radius: 12px;
+				background: linear-gradient(45deg, var(--primary), var(--accent));
+				z-index: -1;
+				filter: blur(10px);
+				opacity: 0.7;
+				animation: neon-glow 2s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+			}
+			@keyframes neon {
+				0%,
+				100% {
+					opacity: 1;
+				}
+				50% {
+					opacity: 0.5;
+				}
+			}
+			@keyframes neon-glow {
+				0%,
+				100% {
+					opacity: 0.7;
+				}
+				50% {
+					opacity: 0.3;
+				}
+			}
+			/* Animation 18: Ripple */
+			.ripple {
+				width: 60px;
+				height: 60px;
+				background-color: var(--primary);
+				border-radius: 50%;
+				position: relative;
+				overflow: hidden;
+			}
+			.ripple::before {
+				content: "";
+				position: absolute;
+				top: 50%;
+				left: 50%;
+				width: 100%;
+				height: 100%;
+				background-color: var(--primary);
+				border-radius: 50%;
+				transform: translate(-50%, -50%) scale(1);
+				animation: ripple 2s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+			}
+			@keyframes ripple {
+				0% {
+					transform: translate(-50%, -50%) scale(1);
+					opacity: 1;
+				}
+				100% {
+					transform: translate(-50%, -50%) scale(2);
+					opacity: 0;
+				}
+			}
+			/* Animation 19: Flip */
+			.flip {
+				width: 60px;
+				height: 60px;
+				background-color: var(--primary);
+				border-radius: 12px;
+				animation: flip 2s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+				box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+			}
+			@keyframes flip {
+				0% {
+					transform: perspective(400px) rotateY(0);
+				}
+				100% {
+					transform: perspective(400px) rotateY(360deg);
+				}
+			}
+			/* Animation 20: Shimmer */
+			.shimmer {
+				width: 60px;
+				height: 60px;
+				background: linear-gradient(
+					90deg,
+					var(--primary) 0%,
+					var(--accent) 50%,
+					var(--primary) 100%
+				);
+				background-size: 200% 100%;
+				border-radius: 12px;
+				animation: shimmer 2s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+				box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+				position: relative;
+				overflow: hidden;
+			}
+			.shimmer::before {
+				content: "";
+				position: absolute;
+				top: 0;
+				left: -100%;
+				width: 50%;
+				height: 100%;
+				background: linear-gradient(
+					90deg,
+					transparent,
+					rgba(255, 255, 255, 0.3),
+					transparent
+				);
+				animation: shimmer-effect 2s infinite;
+			}
+			@keyframes shimmer {
+				0% {
+					background-position: -200% 0;
+				}
+				100% {
+					background-position: 200% 0;
+				}
+			}
+			@keyframes shimmer-effect {
+				0% {
+					left: -100%;
+				}
+				100% {
+					left: 200%;
+				}
+			}
+			/* Add decorative elements and doodles */
+			.doodle {
+				position: absolute;
+				pointer-events: none;
+				opacity: 0.1;
+				z-index: 0;
+			}
+			.doodle-1 {
+				top: 20%;
+				left: 10%;
+				width: 100px;
+				height: 100px;
+				background: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M50,20 Q70,20 70,40 Q70,60 50,60 Q30,60 30,40 Q30,20 50,20 Z' fill='%230071e3'/%3E%3C/svg%3E")
+					no-repeat center;
+				animation: float 7s ease-in-out infinite;
+			}
+			.doodle-2 {
+				top: 40%;
+				right: 15%;
+				width: 80px;
+				height: 80px;
+				background: url("data:image/svg+xml,%3Csvg width='80' height='80' viewBox='0 0 80 80' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M40,10 L70,40 L40,70 L10,40 Z' fill='%232997ff'/%3E%3C/svg%3E")
+					no-repeat center;
+				animation: float 5s ease-in-out infinite reverse;
+			}
+			.doodle-3 {
+				bottom: 30%;
+				left: 20%;
+				width: 60px;
+				height: 60px;
+				background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M30,5 L55,30 L30,55 L5,30 Z' fill='%230071e3'/%3E%3C/svg%3E")
+					no-repeat center;
+				animation: float 6s ease-in-out infinite;
+			}
+			.section-divider {
+				position: relative;
+				height: 100px;
+				overflow: hidden;
+				margin: 2rem 0;
+			}
+			.section-divider::before {
+				content: "";
+				position: absolute;
+				width: 100%;
+				height: 2px;
+				background: linear-gradient(
+					90deg,
+					transparent,
+					var(--primary),
+					transparent
+				);
+				top: 50%;
+				transform: translateY(-50%);
+			}
+			.section-divider::after {
+				content: "";
+				position: absolute;
+				width: 20px;
+				height: 20px;
+				background: var(--primary);
+				border-radius: 50%;
+				top: 50%;
+				left: 50%;
+				transform: translate(-50%, -50%);
+				box-shadow: 0 0 10px var(--primary);
+			}
+			@keyframes float {
+				0%,
+				100% {
+					transform: translateY(0) rotate(0deg);
+				}
+				50% {
+					transform: translateY(-20px) rotate(5deg);
+				}
+			}
+			/* Add decorative corners to cards */
+			.animation-card::before,
+			.animation-card::after {
+				content: "";
+				position: absolute;
+				width: 20px;
+				height: 20px;
+				border: 2px solid var(--primary);
+				opacity: 0.2;
+			}
+			.animation-card::before {
+				top: 10px;
+				left: 10px;
+				border-right: none;
+				border-bottom: none;
+			}
+			.animation-card::after {
+				bottom: 10px;
+				right: 10px;
+				border-left: none;
+				border-top: none;
 			}
 		</style>
 	</head>
 	<body>
-		<div class="chart-container">
-			<div class="bar" style="background-color: #4e9f3d"></div>
-			<div class="bar" style="background-color: #f5b700"></div>
-			<div class="bar" style="background-color: #1e81b0"></div>
-			<div class="bar" style="background-color: #e94560"></div>
-			<div class="bar" style="background-color: #a06cd5"></div>
+		<nav class="navbar">
+			<div class="logo">Animotion</div>
+			<div class="nav-links">
+				<a href="#animations">Animations</a>
+				<a href="#docs">Documentation</a>
+				<a href="#examples">Examples</a>
+				<a href="#github">GitHub</a>
+			</div>
+		</nav>
+
+		<section class="hero">
+			<div class="doodle doodle-1"></div>
+			<div class="doodle doodle-2"></div>
+			<div class="doodle doodle-3"></div>
+			<h1>Beautiful CSS Animations</h1>
+			<p>
+				Experience the power of smooth, performant animations for your next web
+				project.
+			</p>
+			<div class="cta-buttons">
+				<a href="#animations" class="cta-button cta-primary">Get Started</a>
+				<a href="#docs" class="cta-button cta-secondary">Learn More</a>
+			</div>
+		</section>
+
+		<div class="container">
+			<section id="animations">
+				<div class="section-title">
+					<h2>Animation Library</h2>
+					<p>Choose from our collection of carefully crafted animations</p>
+				</div>
+
+				<div class="section-divider"></div>
+
+				<div class="categories">
+					<button class="category-btn active" data-category="all">All</button>
+					<button class="category-btn" data-category="basic">Basic</button>
+					<button class="category-btn" data-category="advanced">
+						Advanced
+					</button>
+					<button class="category-btn" data-category="effects">Effects</button>
+				</div>
+
+				<div class="animations-grid">
+					<!-- Animation 1: Bouncing Ball -->
+					<div class="animation-card" data-category="basic">
+						<h3 class="animation-title">
+							<i class="fas fa-circle"></i> Bouncing Ball
+						</h3>
+						<div class="demo-container">
+							<div class="bouncing-ball"></div>
+						</div>
+						<div class="controls">
+							<button onclick="toggleAnimation(this)">Play/Pause</button>
+						</div>
+						<div class="code-section">
+							<button class="copy-button">Copy</button>
+							<pre><code class="language-css">
+.bouncing-ball {
+	width: 40px;
+	height: 40px;
+	background-color: var(--primary);
+	border-radius: 50%;
+	animation: bounce 1s cubic-bezier(0.36, 0, 0.66, -0.56) infinite;
+	box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+}
+
+@keyframes bounce {
+	0%,
+	100% {
+		transform: translateY(0);
+	}
+	50% {
+		transform: translateY(-80px);
+	}
+}</code></pre>
+						</div>
+					</div>
+
+					<!-- Animation 2: Pulse -->
+					<div class="animation-card" data-category="basic">
+						<h3 class="animation-title"><i class="fas fa-heart"></i> Pulse</h3>
+						<div class="demo-container">
+							<div class="pulse"></div>
+						</div>
+						<div class="controls">
+							<button onclick="toggleAnimation(this)">Play/Pause</button>
+						</div>
+						<div class="code-section">
+							<button class="copy-button">Copy</button>
+							<pre><code class="language-css">
+.pulse {
+	width: 60px;
+	height: 60px;
+	background-color: var(--primary);
+	border-radius: 50%;
+	animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+	box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+}
+
+@keyframes pulse {
+	0%,
+	100% {
+		transform: scale(1);
+		opacity: 1;
+	}
+	50% {
+		transform: scale(1.2);
+		opacity: 0.8;
+	}
+}</code></pre>
+						</div>
+					</div>
+
+					<!-- Animation 3: Rotating Square -->
+					<div class="animation-card" data-category="basic">
+						<h3 class="animation-title">
+							<i class="fas fa-square"></i> Rotating Square
+						</h3>
+						<div class="demo-container">
+							<div class="rotating-square"></div>
+						</div>
+						<div class="controls">
+							<button onclick="toggleAnimation(this)">Play/Pause</button>
+						</div>
+						<div class="code-section">
+							<button class="copy-button">Copy</button>
+							<pre><code class="language-css">
+.rotating-square {
+	width: 50px;
+	height: 50px;
+	background-color: var(--primary);
+	animation: rotate 2s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+	box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+}
+
+@keyframes rotate {
+	from {
+		transform: rotate(0deg);
+	}
+	to {
+		transform: rotate(360deg);
+	}
+}</code></pre>
+						</div>
+					</div>
+
+					<!-- Animation 4: Sliding Bar -->
+					<div class="animation-card" data-category="basic">
+						<h3 class="animation-title">
+							<i class="fas fa-bars"></i> Sliding Bar
+						</h3>
+						<div class="demo-container">
+							<div class="sliding-bar"></div>
+						</div>
+						<div class="controls">
+							<button onclick="toggleAnimation(this)">Play/Pause</button>
+						</div>
+						<div class="code-section">
+							<button class="copy-button">Copy</button>
+							<pre><code class="language-css">
+.sliding-bar {
+	width: 80%;
+	height: 8px;
+	background-color: var(--primary);
+	border-radius: 4px;
+	animation: slide 2s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+	box-shadow: 0 2px 4px -1px rgba(0, 0, 0, 0.1);
+}
+
+@keyframes slide {
+	0% {
+		transform: translateX(-100%);
+	}
+	100% {
+		transform: translateX(100%);
+	}
+}</code></pre>
+						</div>
+					</div>
+
+					<!-- Animation 5: Wave -->
+					<div class="animation-card" data-category="advanced">
+						<h3 class="animation-title">
+							<i class="fas fa-wave-square"></i> Wave
+						</h3>
+						<div class="demo-container">
+							<div class="wave"></div>
+						</div>
+						<div class="controls">
+							<button onclick="toggleAnimation(this)">Play/Pause</button>
+						</div>
+						<div class="code-section">
+							<button class="copy-button">Copy</button>
+							<pre><code class="language-css">
+.wave {
+	width: 100%;
+	height: 100px;
+	position: relative;
+	overflow: hidden;
+	background-color: var(--surface);
+}
+
+.wave::before {
+	content: "";
+	position: absolute;
+	width: 200%;
+	height: 200%;
+	background-color: var(--primary);
+	opacity: 0.8;
+	animation: wave 3s linear infinite;
+	top: 50%;
+	left: 50%;
+	transform-origin: 50% 50%;
+}
+
+@keyframes wave {
+	0% {
+		transform: translate(-50%, -50%) rotate(0deg);
+	}
+	100% {
+		transform: translate(-50%, -50%) rotate(360deg);
+	}
+}
+</code></pre>
+						</div>
+					</div>
+
+					<!-- Animation 6: Typing -->
+					<div class="animation-card" data-category="effects">
+						<h3 class="animation-title"><i class="fas fa-type"></i> Typing</h3>
+						<div class="demo-container">
+							<div class="typing">Hello World!</div>
+						</div>
+						<div class="controls">
+							<button onclick="toggleAnimation(this)">Play/Pause</button>
+						</div>
+						<div class="code-section">
+							<button class="copy-button">Copy</button>
+							<pre><code class="language-css">
+.typing {
+	width: 0;
+	overflow: hidden;
+	border-right: 2px solid var(--primary);
+	white-space: nowrap;
+	font-size: 1.5rem;
+	font-weight: 500;
+	color: var(--text);
+	animation: typing 3s steps(40) infinite;
+	margin: 0 auto;
+}
+
+@keyframes typing {
+	from { width: 0; }
+	to { width: 100%; }
+}
+</code></pre>
+						</div>
+					</div>
+
+					<!-- Animation 7: Shake -->
+					<div class="animation-card" data-category="effects">
+						<h3 class="animation-title">
+							<i class="fas fa-hand-paper"></i> Shake
+						</h3>
+						<div class="demo-container">
+							<div class="shake"></div>
+						</div>
+						<div class="controls">
+							<button onclick="toggleAnimation(this)">Play/Pause</button>
+						</div>
+						<div class="code-section">
+							<button class="copy-button">Copy</button>
+							<pre><code class="language-css">
+.shake {
+	width: 60px;
+	height: 60px;
+	background-color: var(--primary);
+	border-radius: 12px;
+	animation: shake 0.5s cubic-bezier(0.36, 0, 0.66, -0.56) infinite;
+	box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+}
+
+@keyframes shake {
+	0%,
+	100% {
+		transform: translateX(0);
+	}
+	25% {
+		transform: translateX(-8px);
+	}
+	75% {
+		transform: translateX(8px);
+	}
+}</code></pre>
+						</div>
+					</div>
+
+					<!-- Animation 8: Fade -->
+					<div class="animation-card" data-category="basic">
+						<h3 class="animation-title"><i class="fas fa-fade"></i> Fade</h3>
+						<div class="demo-container">
+							<div class="fade"></div>
+						</div>
+						<div class="controls">
+							<button onclick="toggleAnimation(this)">Play/Pause</button>
+						</div>
+						<div class="code-section">
+							<button class="copy-button">Copy</button>
+							<pre><code class="language-css">
+.fade {
+	width: 60px;
+	height: 60px;
+	background-color: var(--primary);
+	border-radius: 12px;
+	animation: fade 2s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+	box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+}
+
+@keyframes fade {
+	0%,
+	100% {
+		opacity: 1;
+	}
+	50% {
+		opacity: 0.3;
+	}
+}</code></pre>
+						</div>
+					</div>
+
+					<!-- Animation 9: Scale -->
+					<div class="animation-card" data-category="basic">
+						<h3 class="animation-title"><i class="fas fa-expand"></i> Scale</h3>
+						<div class="demo-container">
+							<div class="scale"></div>
+						</div>
+						<div class="controls">
+							<button onclick="toggleAnimation(this)">Play/Pause</button>
+						</div>
+						<div class="code-section">
+							<button class="copy-button">Copy</button>
+							<pre><code class="language-css">
+.scale {
+	width: 60px;
+	height: 60px;
+	background-color: var(--primary);
+	border-radius: 12px;
+	animation: scale 2s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+	box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+}
+
+@keyframes scale {
+	0%,
+	100% {
+		transform: scale(1);
+	}
+	50% {
+		transform: scale(1.2);
+	}
+}</code></pre>
+						</div>
+					</div>
+
+					<!-- Animation 10: Border -->
+					<div class="animation-card" data-category="effects">
+						<h3 class="animation-title">
+							<i class="fas fa-border-all"></i> Border
+						</h3>
+						<div class="demo-container">
+							<div class="border-animation"></div>
+						</div>
+						<div class="controls">
+							<button onclick="toggleAnimation(this)">Play/Pause</button>
+						</div>
+						<div class="code-section">
+							<button class="copy-button">Copy</button>
+							<pre><code class="language-css">
+.border-animation {
+	width: 60px;
+	height: 60px;
+	background-color: transparent;
+	border: 2px solid var(--primary);
+	border-radius: 12px;
+	animation: border 2s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+}
+
+@keyframes border {
+	0% {
+		border-color: var(--primary);
+	}
+	50% {
+		border-color: var(--accent);
+	}
+	100% {
+		border-color: var(--primary);
+	}
+}</code></pre>
+						</div>
+					</div>
+
+					<!-- Animation 11: Gradient -->
+					<div class="animation-card" data-category="advanced">
+						<h3 class="animation-title">
+							<i class="fas fa-paint-brush"></i> Gradient
+						</h3>
+						<div class="demo-container">
+							<div class="gradient"></div>
+						</div>
+						<div class="controls">
+							<button onclick="toggleAnimation(this)">Play/Pause</button>
+						</div>
+						<div class="code-section">
+							<button class="copy-button">Copy</button>
+							<pre><code class="language-css">
+.gradient {
+	width: 60px;
+	height: 60px;
+	background: linear-gradient(45deg, var(--primary), var(--accent));
+	background-size: 200% 200%;
+	border-radius: 12px;
+	animation: gradient 3s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+	box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+}
+
+@keyframes gradient {
+	0% {
+		background-position: 0% 50%;
+	}
+	50% {
+		background-position: 100% 50%;
+	}
+	100% {
+		background-position: 0% 50%;
+	}
+}</code></pre>
+						</div>
+					</div>
+
+					<!-- Animation 12: Morphing -->
+					<div class="animation-card" data-category="advanced">
+						<h3 class="animation-title">
+							<i class="fas fa-magic"></i> Morphing
+						</h3>
+						<div class="demo-container">
+							<div class="morph"></div>
+						</div>
+						<div class="controls">
+							<button onclick="toggleAnimation(this)">Play/Pause</button>
+						</div>
+						<div class="code-section">
+							<button class="copy-button">Copy</button>
+							<pre><code class="language-css">
+.morph {
+	width: 60px;
+	height: 60px;
+	background-color: var(--primary);
+	animation: morph 3s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+	box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+}
+
+@keyframes morph {
+	0% {
+		border-radius: 0;
+	}
+	50% {
+		border-radius: 50%;
+	}
+	100% {
+		border-radius: 0;
+	}
+}</code></pre>
+						</div>
+					</div>
+
+					<!-- Animation 13: Floating -->
+					<div class="animation-card" data-category="basic">
+						<h3 class="animation-title">
+							<i class="fas fa-water"></i> Floating
+						</h3>
+						<div class="demo-container">
+							<div class="floating"></div>
+						</div>
+						<div class="controls">
+							<button onclick="toggleAnimation(this)">Play/Pause</button>
+						</div>
+						<div class="code-section">
+							<button class="copy-button">Copy</button>
+							<pre><code class="language-css">
+.floating {
+	width: 60px;
+	height: 60px;
+	background-color: var(--primary);
+	border-radius: 12px;
+	animation: floating 3s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+	box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+}
+
+@keyframes floating {
+	0% {
+		transform: translateY(0);
+	}
+	50% {
+		transform: translateY(-20px);
+	}
+	100% {
+		transform: translateY(0);
+	}
+}</code></pre>
+						</div>
+					</div>
+
+					<!-- Animation 14: Spinner -->
+					<div class="animation-card" data-category="basic">
+						<h3 class="animation-title">
+							<i class="fas fa-spinner"></i> Spinner
+						</h3>
+						<div class="demo-container">
+							<div class="spinner"></div>
+						</div>
+						<div class="controls">
+							<button onclick="toggleAnimation(this)">Play/Pause</button>
+						</div>
+						<div class="code-section">
+							<button class="copy-button">Copy</button>
+							<pre><code class="language-css">
+.spinner {
+	width: 40px;
+	height: 40px;
+	border: 4px solid rgba(0, 0, 0, 0.1);
+	border-top: 4px solid var(--primary);
+	border-radius: 50%;
+	animation: spin 1s linear infinite;
+	display: inline-block;
+	vertical-align: middle;
+	transform-origin: center;
+	will-change: transform;
+}
+
+@keyframes spin {
+	from {
+		transform: rotate(0deg);
+	}
+	to {
+		transform: rotate(360deg);
+	}
+}
+</code></pre>
+						</div>
+					</div>
+
+					<!-- Animation 15: Heartbeat -->
+					<div class="animation-card" data-category="advanced">
+						<h3 class="animation-title">
+							<i class="fas fa-heart"></i> Heartbeat
+						</h3>
+						<div class="demo-container">
+							<div class="heartbeat"></div>
+						</div>
+						<div class="controls">
+							<button onclick="toggleAnimation(this)">Play/Pause</button>
+						</div>
+						<div class="code-section">
+							<button class="copy-button">Copy</button>
+							<pre><code class="language-css">
+.heartbeat {
+	width: 40px;
+	height: 40px;
+	background-color: var(--primary);
+	transform: rotate(45deg);
+	animation: heartbeat 1s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+	box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+	position: relative;
+}
+
+.heartbeat::before,
+.heartbeat::after {
+	content: "";
+	width: 40px;
+	height: 40px;
+	background-color: var(--primary);
+	border-radius: 50%;
+	position: absolute;
+}
+
+.heartbeat::before {
+	left: -20px;
+}
+
+.heartbeat::after {
+	top: -20px;
+}
+
+@keyframes heartbeat {
+	0% { transform: rotate(45deg) scale(1); }
+	14% { transform: rotate(45deg) scale(1.3); }
+	28% { transform: rotate(45deg) scale(1); }
+	42% { transform: rotate(45deg) scale(1.3); }
+	70% { transform: rotate(45deg) scale(1); }
+}
+</code></pre>
+						</div>
+					</div>
+
+					<!-- Animation 16: Glitch -->
+					<div class="animation-card" data-category="effects">
+						<h3 class="animation-title"><i class="fas fa-globe"></i> Glitch</h3>
+						<div class="demo-container">
+							<div class="glitch"></div>
+						</div>
+						<div class="controls">
+							<button onclick="toggleAnimation(this)">Play/Pause</button>
+						</div>
+						<div class="code-section">
+							<button class="copy-button">Copy</button>
+							<pre><code class="language-css">
+.glitch {
+	width: 60px;
+	height: 60px;
+	background-color: var(--primary);
+	border-radius: 12px;
+	position: relative;
+	animation: glitch 1s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+	box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+}
+
+.glitch::before,
+.glitch::after {
+	content: "";
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background-color: var(--primary);
+	border-radius: 12px;
+}
+
+.glitch::before {
+	left: 2px;
+	background-color: var(--accent);
+	animation: glitch-anim-1 1s infinite linear alternate-reverse;
+}
+
+.glitch::after {
+	left: -2px;
+	background-color: var(--primary);
+	animation: glitch-anim-2 1s infinite linear alternate-reverse;
+}
+
+@keyframes glitch {
+	0% { transform: translate(0); }
+	20% { transform: translate(-4px, 4px); }
+	40% { transform: translate(-4px, -4px); }
+	60% { transform: translate(4px, 4px); }
+	80% { transform: translate(4px, -4px); }
+	100% { transform: translate(0); }
+}
+
+@keyframes glitch-anim-1 {
+	0% { clip-path: inset(20% 0 30% 0); }
+	20% { clip-path: inset(65% 0 15% 0); }
+	40% { clip-path: inset(40% 0 50% 0); }
+	60% { clip-path: inset(25% 0 60% 0); }
+	80% { clip-path: inset(75% 0 5% 0); }
+	100% { clip-path: inset(10% 0 70% 0); }
+}
+
+@keyframes glitch-anim-2 {
+	0% { clip-path: inset(15% 0 35% 0); }
+	20% { clip-path: inset(70% 0 10% 0); }
+	40% { clip-path: inset(45% 0 45% 0); }
+	60% { clip-path: inset(30% 0 55% 0); }
+	80% { clip-path: inset(80% 0 0% 0); }
+	100% { clip-path: inset(5% 0 75% 0); }
+}
+</code></pre>
+						</div>
+					</div>
+
+					<!-- Animation 17: Neon -->
+					<div class="animation-card" data-category="effects">
+						<h3 class="animation-title">
+							<i class="fas fa-lightbulb"></i> Neon
+						</h3>
+						<div class="demo-container">
+							<div class="neon"></div>
+						</div>
+						<div class="controls">
+							<button onclick="toggleAnimation(this)">Play/Pause</button>
+						</div>
+						<div class="code-section">
+							<button class="copy-button">Copy</button>
+							<pre><code class="language-css">
+.neon {
+	width: 60px;
+	height: 60px;
+	background-color: transparent;
+	border: 2px solid var(--primary);
+	border-radius: 12px;
+	box-shadow: 0 0 10px var(--primary), 0 0 20px var(--primary), 0 0 30px var(--primary);
+	animation: neon 2s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+	position: relative;
+}
+
+.neon::before {
+	content: "";
+	position: absolute;
+	top: -2px;
+	left: -2px;
+	right: -2px;
+	bottom: -2px;
+	border-radius: 12px;
+	background: linear-gradient(45deg, var(--primary), var(--accent));
+	z-index: -1;
+	filter: blur(10px);
+	opacity: 0.7;
+	animation: neon-glow 2s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+}
+
+@keyframes neon {
+	0%, 100% { opacity: 1; }
+	50% { opacity: 0.5; }
+}
+
+@keyframes neon-glow {
+	0%, 100% { opacity: 0.7; }
+	50% { opacity: 0.3; }
+}
+</code></pre>
+						</div>
+					</div>
+
+					<!-- Animation 18: Ripple -->
+					<div class="animation-card" data-category="effects">
+						<h3 class="animation-title">
+							<i class="fas fa-wave-square"></i> Ripple
+						</h3>
+						<div class="demo-container">
+							<div class="ripple"></div>
+						</div>
+						<div class="controls">
+							<button onclick="toggleAnimation(this)">Play/Pause</button>
+						</div>
+						<div class="code-section">
+							<button class="copy-button">Copy</button>
+							<pre><code class="language-css">
+.ripple {
+	width: 60px;
+	height: 60px;
+	background-color: var(--primary);
+	border-radius: 50%;
+	position: relative;
+	overflow: hidden;
+}
+
+.ripple::before {
+	content: "";
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	width: 100%;
+	height: 100%;
+	background-color: var(--primary);
+	border-radius: 50%;
+	transform: translate(-50%, -50%) scale(1);
+	animation: ripple 2s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+}
+
+@keyframes ripple {
+	0% { transform: translate(-50%, -50%) scale(1); opacity: 1; }
+	100% { transform: translate(-50%, -50%) scale(2); opacity: 0; }
+}
+</code></pre>
+						</div>
+					</div>
+
+					<!-- Animation 19: Flip -->
+					<div class="animation-card" data-category="advanced">
+						<h3 class="animation-title">
+							<i class="fas fa-exchange-alt"></i> Flip
+						</h3>
+						<div class="demo-container">
+							<div class="flip"></div>
+						</div>
+						<div class="controls">
+							<button onclick="toggleAnimation(this)">Play/Pause</button>
+						</div>
+						<div class="code-section">
+							<button class="copy-button">Copy</button>
+							<pre><code class="language-css">
+.flip {
+	width: 60px;
+	height: 60px;
+	background-color: var(--primary);
+	border-radius: 12px;
+	animation: flip 2s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+	box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+}
+
+@keyframes flip {
+	0% {
+		transform: perspective(400px) rotateY(0);
+	}
+	100% {
+		transform: perspective(400px) rotateY(360deg);
+	}
+}</code></pre>
+						</div>
+					</div>
+
+					<!-- Animation 20: Shimmer -->
+					<div class="animation-card" data-category="effects">
+						<h3 class="animation-title">
+							<i class="fas fa-shimmer"></i> Shimmer
+						</h3>
+						<div class="demo-container">
+							<div class="shimmer"></div>
+						</div>
+						<div class="controls">
+							<button onclick="toggleAnimation(this)">Play/Pause</button>
+						</div>
+						<div class="code-section">
+							<button class="copy-button">Copy</button>
+							<pre><code class="language-css">
+.shimmer {
+	width: 60px;
+	height: 60px;
+	background: linear-gradient(90deg, var(--primary) 0%, var(--accent) 50%, var(--primary) 100%);
+	background-size: 200% 100%;
+	border-radius: 12px;
+	animation: shimmer 2s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+	box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+	position: relative;
+	overflow: hidden;
+}
+
+.shimmer::before {
+	content: "";
+	position: absolute;
+	top: 0;
+	left: -100%;
+	width: 50%;
+	height: 100%;
+	background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+	animation: shimmer-effect 2s infinite;
+}
+
+@keyframes shimmer {
+	0% { background-position: -200% 0; }
+	100% { background-position: 200% 0; }
+}
+
+@keyframes shimmer-effect {
+	0% { left: -100%; }
+	100% { left: 200%; }
+}
+</code></pre>
+						</div>
+					</div>
+				</div>
+			</section>
 		</div>
-		<div class="controls">
-			<button id="start">Start</button>
-			<button id="reset">Reset</button>
-			<button id="stop">Stop</button>
-		</div>
+
+		<footer>
+			<div class="footer-content">
+				<h3>Animotion</h3>
+				<p>Open source animation library for modern web applications</p>
+				<div class="social-links">
+					<a href="#"><i class="fab fa-github"></i></a>
+					<a href="#"><i class="fab fa-twitter"></i></a>
+					<a href="#"><i class="fab fa-codepen"></i></a>
+				</div>
+			</div>
+		</footer>
+
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/prism.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-css.min.js"></script>
 		<script>
-			const bars = document.querySelectorAll(".bar");
-			const startBtn = document.getElementById("start");
-			const resetBtn = document.getElementById("reset");
-			const stopBtn = document.getElementById("stop");
-			let animationFrame;
-			let directions = Array(bars.length).fill(1);
-			let speeds = Array.from(
-				{ length: bars.length },
-				() => Math.random() * 3 + 2
-			);
-			let heights = Array(bars.length).fill(0);
-			function animateBars() {
-				bars.forEach((bar, index) => {
-					heights[index] += directions[index] * speeds[index];
-					if (heights[index] >= 300 || heights[index] <= 0) {
-						directions[index] *= -1;
-						heights[index] = Math.min(300, Math.max(0, heights[index]));
-					}
-					bar.style.height = `${heights[index]}px`;
+			// Category filtering
+			const categoryButtons = document.querySelectorAll(".category-btn");
+			const animationCards = document.querySelectorAll(".animation-card");
+
+			categoryButtons.forEach((button) => {
+				button.addEventListener("click", () => {
+					// Remove active class from all buttons
+					categoryButtons.forEach((btn) => btn.classList.remove("active"));
+					// Add active class to clicked button
+					button.classList.add("active");
+
+					const category = button.dataset.category;
+					animationCards.forEach((card) => {
+						if (category === "all" || card.dataset.category === category) {
+							card.style.display = "block";
+						} else {
+							card.style.display = "none";
+						}
+					});
 				});
-				animationFrame = requestAnimationFrame(animateBars);
-			}
-			function startAnimation() {
-				if (!animationFrame) {
-					animateBars();
+			});
+
+			// Copy button functionality
+			const copyButtons = document.querySelectorAll(".copy-button");
+			copyButtons.forEach((button) => {
+				button.addEventListener("click", () => {
+					const code = button.nextElementSibling.textContent;
+					navigator.clipboard.writeText(code).then(() => {
+						button.textContent = "Copied!";
+						setTimeout(() => {
+							button.textContent = "Copy";
+						}, 2000);
+					});
+				});
+			});
+
+			// Animation play/pause functionality
+			function toggleAnimation(button) {
+				const demoContainer = button
+					.closest(".animation-card")
+					.querySelector(".demo-container");
+				const element = demoContainer.querySelector("div:not(.controls)");
+
+				if (element.style.animationPlayState === "paused") {
+					element.style.animationPlayState = "running";
+					button.textContent = "Pause";
+				} else {
+					element.style.animationPlayState = "paused";
+					button.textContent = "Play";
 				}
 			}
-			function stopAnimation() {
-				cancelAnimationFrame(animationFrame);
-				animationFrame = null;
-			}
-			function resetBars() {
-				stopAnimation();
-				heights = heights.map(() => 300);
-				directions = Array(bars.length).fill(1);
-				bars.forEach((bar, index) => {
-					bar.style.height = `${heights[index]}px`;
-				});
-			}
-			startBtn.addEventListener("click", startAnimation);
-			stopBtn.addEventListener("click", stopAnimation);
-			resetBtn.addEventListener("click", resetBars);
 		</script>
 	</body>
 </html>
