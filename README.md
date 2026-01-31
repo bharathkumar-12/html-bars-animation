@@ -8,7 +8,7 @@ A modern, lightweight, and easy-to-use CSS animation library for web developers.
 
 ## Features
 
-- 🎨 20+ Beautiful CSS Animations
+- 🎨 24+ Beautiful CSS Animations
 - 📱 Mobile-friendly and responsive
 - ⚡ Performance optimized
 - 🎯 Easy to implement
@@ -29,6 +29,7 @@ A modern, lightweight, and easy-to-use CSS animation library for web developers.
 - Scale
 - Floating
 - Spinner
+- Progress Bar Fill
 
 ### Advanced Animations
 
@@ -37,6 +38,7 @@ A modern, lightweight, and easy-to-use CSS animation library for web developers.
 - Morphing
 - Heartbeat
 - Flip
+- Settled Bar Wave
 
 ### Effects
 
@@ -47,6 +49,8 @@ A modern, lightweight, and easy-to-use CSS animation library for web developers.
 - Neon
 - Ripple
 - Shimmer
+- Pulse Bar
+- Color Fade Bar
 
 ## Getting Started
 
