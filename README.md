@@ -2,9 +2,7 @@
 
 A modern, lightweight, and easy-to-use CSS animation library for web developers. Animotion provides a collection of carefully crafted animations that can be easily integrated into any web project.
 
-
 ![screencapture-zippy-squirrel-09cf8b-netlify-app-2025-04-05-11_54_25](https://github.com/user-attachments/assets/55e9c0d0-9d80-495d-80c2-fe166fbbf282)
-
 
 ## Features
 
@@ -88,26 +86,26 @@ Example:
 
 <!-- CSS -->
 <style>
-	.pulse {
-		width: 60px;
-		height: 60px;
-		background-color: var(--primary);
-		border-radius: 50%;
-		animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
-		box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-	}
+  .pulse {
+    width: 60px;
+    height: 60px;
+    background-color: var(--primary);
+    border-radius: 50%;
+    animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  }
 
-	@keyframes pulse {
-		0%,
-		100% {
-			transform: scale(1);
-			opacity: 1;
-		}
-		50% {
-			transform: scale(1.2);
-			opacity: 0.8;
-		}
-	}
+  @keyframes pulse {
+    0%,
+    100% {
+      transform: scale(1);
+      opacity: 1;
+    }
+    50% {
+      transform: scale(1.2);
+      opacity: 0.8;
+    }
+  }
 </style>
 ```
 
@@ -124,15 +122,15 @@ Example:
 
 ```css
 .pulse {
-	/* Change size */
-	width: 80px;
-	height: 80px;
+  /* Change size */
+  width: 80px;
+  height: 80px;
 
-	/* Change color */
-	background-color: #ff0000;
+  /* Change color */
+  background-color: #ff0000;
 
-	/* Change timing */
-	animation-duration: 1s;
+  /* Change timing */
+  animation-duration: 1s;
 }
 ```
 
