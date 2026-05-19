@@ -185,3 +185,9 @@ Created with ❤️ by Bharath Kumar
 ---
 
 Made with modern web technologies and a passion for beautiful animations.
+
+---
+
+## Maintenance
+
+Last maintenance update: <!--LAST_UPDATED-->2026-05-19<!--/LAST_UPDATED-->
